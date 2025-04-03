@@ -1,0 +1,27 @@
+{
+  "name": "02-api-solid-gympass",
+  "version": "1.0.0",
+  "description": "GymPass style app",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "node build/server.js",
+    "build": "tsup src --out-dir build"
+  },
+  "author": "Mauricio Yansen",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/node": "22.14.0",
+    "prisma": "6.5.0",
+    "tsup": "8.4.0",
+    "tsx": "4.19.3",
+    "typescript": "5.8.2"
+  },
+  "dependencies": {
+    "@prisma/client": "6.5.0",
+    "dotenv": "16.4.7",
+    "fastify": "5.2.2",
+    "zod": "3.24.2"
+  }
+}
