@@ -17,7 +17,7 @@ describe("Search Gyms (e2e)", () => {
   });
 
   it("should be able to filter a gym", async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, true);
 
     await request(app.server)
       .post("/gyms")
