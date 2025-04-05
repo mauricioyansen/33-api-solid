@@ -1,7 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
-import { PrismaUsersRepository } from "@/repositories/prisma/prisma-users-repository";
-import { AuthenticateService } from "../services/authenticate";
 import { InvalidCredentialsError } from "../services/errors/invalid-credentials-error";
 import { makeAuthenticateService } from "../services/factories/make-authenticate-service";
 
@@ -19,13 +17,20 @@ export async function authenticateController(
   try {
     const authenticateService = makeAuthenticateService();
 
-    await authenticateService.execute({ email, password });
+    const { user } = await authenticateService.execute({ email, password });
+
+    const token = await res.jwtSign(
+      {},
+      {
+        sign: { sub: user.id },
+      }
+    );
+
+    return res.status(200).send({ token });
   } catch (error) {
     if (error instanceof InvalidCredentialsError)
       return res.status(400).send({ message: error.message });
 
     throw error;
   }
-
-  return res.status(200).send();
 }
